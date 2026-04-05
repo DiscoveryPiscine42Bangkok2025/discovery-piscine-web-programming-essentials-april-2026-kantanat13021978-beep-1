@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .parallax {
+            background-image: url("https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80");
+
+            height: 100vh;
+
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .second-img {
+            background-image: url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80");
+        }
+
+        .content-section {
+            height: 400px;
+            background-color: #1a1a1a;
+            color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 { font-size: 4rem; margin: 0; }
+        p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+    <div class="parallax">
+        <h1>Mountain Peak</h1>
+    </div>
+
+    <div class="content-section">
+        <h2>Scroll Down</h2>
+    </div>
+
+    <div class="parallax second-img">
+        <h1>Deep Forest</h1>
+    </div>
+
+</body>
+</html>
