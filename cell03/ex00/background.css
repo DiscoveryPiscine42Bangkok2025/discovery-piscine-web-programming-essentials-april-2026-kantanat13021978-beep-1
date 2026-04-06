@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: sans-serif;
+    transition: background-color 0.4s ease;
+  }
+  
+  input[type="radio"] {
+    display: none;
+  }
+  
+  .btn-label {
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    user-select: none;
+  }
+  
+  body:has(#step-white:checked) {
+    background-color: white;
+  }
+  
+  body:has(#step-green:checked) {
+    background-color: green;
+  }
+  
+  body:has(#step-red:checked) {
+    background-color: red;
+  }
+  
+  .btn-label { display: none; }
+  
+  body:has(#step-white:checked) label[for="step-green"] { display: block; }
+  body:has(#step-green:checked) label[for="step-red"] { display: block; }
+  body:has(#step-red:checked) label[for="step-white"] { display: block; }

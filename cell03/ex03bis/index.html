@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List (jQuery)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 40px;
+            background-color: #f4f4f9;
+        }
+
+        #new-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.2s;
+        }
+
+        #new-btn:hover {
+            background-color: #218838;
+        }
+
+        #ft_list {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .todo-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            word-wrap: break-word;
+            transition: transform 0.1s, box-shadow 0.1s;
+            border-left: 5px solid #007bff;
+        }
+
+        .todo-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <button id="new-btn">New</button>
+    <div id="ft_list"></div>
+
+    <script>
+        $(document).ready(function() {
+            const $ftList = $('#ft_list');
+
+            const savedTodos = getCookie('todo_cookie');
+            if (savedTodos) {
+                try {
+                    const todosArray = JSON.parse(savedTodos);
+                    $.each(todosArray.reverse(), function(index, text) {
+                        addTodoToDOM(text, false);
+                    });
+                } catch (e) {
+                    console.error("Error parsing cookies:", e);
+                }
+            }
+
+            // 2. Add New Task
+            $('#new-btn').on('click', function() {
+                const todoText = prompt('Enter a new TO DO:');
+                if (todoText && todoText.trim() !== '') {
+                    addTodoToDOM(todoText, true);
+                }
+            });
+
+            // 3. Helper function to create and add the element
+            function addTodoToDOM(text, saveAfter = true) {
+                const $todoDiv = $('<div></div>')
+                    .addClass('todo-item')
+                    .text(text)
+                    .on('click', function() {
+                        if (confirm('Do you want to permanently remove this TO DO?')) {
+                            $(this).remove();
+                            saveListToCookie();
+                        }
+                    });
+
+                $ftList.prepend($todoDiv);
+
+                if (saveAfter) {
+                    saveListToCookie();
+                }
+            }
+
+            // 4. Save current state to cookies
+            function saveListToCookie() {
+                const items = $ftList.children().map(function() {
+                    return $(this).text();
+                }).get();
+
+                setCookie('todo_cookie', JSON.stringify(items), 30);
+            }
+        });
+
+        /* --- Standard JS Cookie Helpers (Keep these as-is) --- */
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+            }
+            return null;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <button id="colorBtn">คลิกเพื่อเปลี่ยนสี</button>
+
+  <script>
+    $(document).ready(function() {
+      $('#colorBtn').on('click', function() {
+        const $body = $('body');
+        const currentColor = $body.css('background-color');
+
+        if (currentColor === 'rgb(255, 255, 255)' || currentColor === 'white' || currentColor === 'rgba(0, 0, 0, 0)') {
+          $body.css('background-color', 'green');
+        } else if (currentColor === 'rgb(0, 128, 0)' || currentColor === 'green') {
+          $body.css('background-color', 'red');
+        } else {
+          $body.css('background-color', 'white');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

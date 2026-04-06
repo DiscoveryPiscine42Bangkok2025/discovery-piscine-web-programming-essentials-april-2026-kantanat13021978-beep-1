@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      background-color: white;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <button onclick="changeStep()">คลิกเพื่อเปลี่ยนสี</button>
+
+  <script>
+    function changeStep() {
+      const body = document.body;
+
+      if (body.style.backgroundColor === 'white' || body.style.backgroundColor === '') {
+        body.style.backgroundColor = 'green';
+      } else if (body.style.backgroundColor === 'green') {
+        body.style.backgroundColor = 'red';
+      } else {
+        body.style.backgroundColor = 'white';
+      }
+    }
+  </script>
+
+</body>
+</html>

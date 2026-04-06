@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator (jQuery)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+
+        .calculator-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        input[type="text"], select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 120px;
+            text-align: center;
+        }
+
+        select {
+            width: 60px;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div class="calculator-container">
+        <input type="text" id="left-operand" placeholder="Left number">
+        
+        <select id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="%">%</option>
+        </select>
+        
+        <input type="text" id="right-operand" placeholder="Right number">
+        
+        <input type="submit" id="calculate-btn" value="Try me!">
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#calculate-btn').on('click', function() {
+                const leftInput = $('#left-operand').val();
+                const rightInput = $('#right-operand').val();
+                const operator = $('#operator').val();
+                
+                const isPositiveInteger = (str) => /^\d+$/.test(str);
+
+                if (!isPositiveInteger(leftInput) || !isPositiveInteger(rightInput)) {
+                    alert('Error :(');
+                    return;
+                }
+
+                const left = parseInt(leftInput, 10);
+                const right = parseInt(rightInput, 10);
+
+                if ((operator === '/' || operator === '%') && right === 0) {
+                    const over9000Msg = "It's over 9000!";
+                    alert(over9000Msg);
+                    console.log(over9000Msg);
+                    return;
+                }
+
+                let result;
+                switch (operator) {
+                    case '+': result = left + right; break;
+                    case '-': result = left - right; break;
+                    case '*': result = left * right; break;
+                    case '/': result = left / right; break;
+                    case '%': result = left % right; break;
+                }
+
+                alert(result);
+                console.log(result);
+            });
+
+            setInterval(function() {
+                alert("Please use me...");
+            }, 30000);
+        });
+    </script>
+
+</body>
+</html>
